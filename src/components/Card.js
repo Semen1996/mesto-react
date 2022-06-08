@@ -8,7 +8,7 @@ function Card(props) {
     }
 
   return (
-          <div id="element" key={props.card._id}>
+          <div id="element">
             <article className="element">
               <img className="element__picture" src={props.card.link} alt={props.card.name} onClick={handleClick} />
               <div className="element__menu">
