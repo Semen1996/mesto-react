@@ -17,11 +17,15 @@ import {CurrentUserContext} from '../context/CurrentUserContext';
 
 function App() {
 
-  // Получение информации о пользователе с сервера
   const [currentUser,setCurrentUser] = React.useState({});
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(null);
+  const [cards, setCards] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect( () => {
-
     Promise.all( [api.getUserInfo(), api.getInitialCards()] )
       .then(([userData, initialCards]) => {
         setCurrentUser(userData);
@@ -30,16 +34,10 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       });
-    
   },[]);
 
 
-  const [isLoading, setIsLoading] = React.useState(false);
-
-
   // Попап редактирования профиля
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
   }
@@ -59,15 +57,10 @@ function App() {
       .finally(() => {
         setIsLoading(false);
       })
-
   }
 
 
-
-
   // Попап редактирования аватара
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -87,30 +80,18 @@ function App() {
       .finally(() => {
         setIsLoading(false);
       })
-
-
   }
 
   
-
-
   // Попап добавления карточки
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
   }
 
-
   // Попап картинки
-  const [selectedCard, setSelectedCard] = React.useState(null);
-
   function handleSelectedCard(card) {
     setSelectedCard(card);
   }
-
-
-
 
   // Закрытие всех попапов 
   function closeAllPopups() {
@@ -120,15 +101,7 @@ function App() {
     setSelectedCard(null);
   }
 
-
-
-
-
-
-
   // Работа с карточками
-  const [cards, setCards] = React.useState([]);
-
   function handleCardLike(card) {
 
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -141,8 +114,7 @@ function App() {
       .catch((err) => {
         console.log(`${err}`);
       });
-
-  } 
+  }
 
   function handleCardDelete(card) {
 
@@ -172,11 +144,7 @@ function App() {
       .finally(() => {
         setIsLoading(false);
       })
-
-
   }
-
-
 
   return (
     <div className="root">
@@ -192,7 +160,6 @@ function App() {
     </div>
   );
 }
-
 
 export default App;
 

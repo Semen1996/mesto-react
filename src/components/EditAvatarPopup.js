@@ -4,39 +4,25 @@ import {CurrentUserContext} from '../context/CurrentUserContext';
 
 function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, isLoading}) {
 
-  // Подписка на контекст
   const currentUser = React.useContext(CurrentUserContext);
-
   const [avatar, setAvatar] = React.useState(currentUser.avatar);
 
-
   const avatarInputRef = React.useRef(null);
-
+  React.useEffect(() => {
+    setAvatar(currentUser.avatar);
+  }, [currentUser]); 
 
   function handleChangeAvatar(e) {
     setAvatar(e.target.value);
   }
 
-
-
-
-// После загрузки текущего пользователя из API
-// его данные будут использованы в управляемых компонентах.
-React.useEffect(() => {
-  setAvatar(currentUser.avatar);
-}, [currentUser]); 
-
-
-
-function handleSubmit(e) {
-    // Запрещаем браузеру переходить по адресу формы
+  function handleSubmit(e) {
     e.preventDefault();
-  
-    // Передаём значения управляемых компонентов во внешний обработчик
+
     onUpdateAvatar({
       avatar: avatarInputRef.current.value
     });
-  } 
+  }
 
   return (
     <PopupWithForm  title="Обновить аватар" name="updateAvatar" isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit} isLoading={isLoading} >
@@ -47,7 +33,6 @@ function handleSubmit(e) {
     </PopupWithForm>
   );
 }
-
 
 export default EditAvatarPopup;
 
