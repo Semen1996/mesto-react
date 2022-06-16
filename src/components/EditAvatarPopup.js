@@ -12,10 +12,6 @@ function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, isLoading}) {
     setAvatar(currentUser.avatar);
   }, [currentUser]); 
 
-  function handleChangeAvatar(e) {
-    setAvatar(e.target.value);
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
 
