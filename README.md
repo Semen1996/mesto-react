@@ -26,7 +26,7 @@
 Скопируйте проект к себе с помощью команды
 
 ```
-git clone git@github.com:Semen1996/how-to-learn.git
+git clone git@github.com:Semen1996/mesto-react.git
 ```
 
 В директории проекта запустить приложение в режиме разработки:
